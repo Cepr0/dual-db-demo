@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>dual-db-demo</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Spring Boot demo project with access to two DB with one JTA transaction manager</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

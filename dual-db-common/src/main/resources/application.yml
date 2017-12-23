@@ -16,18 +16,23 @@ spring:
 
   jpa:
     show-sql: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-#        transaction:
-#          jta:
-#            enable: true
-#            platform: org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    hibernate:
-      ddl-auto: validate
+
+        connection:
+          release_mode: after_statement
+
+        transaction:
+          jta:
+            enable: true
+            platform: org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform
 
   jta:
     bitronix:

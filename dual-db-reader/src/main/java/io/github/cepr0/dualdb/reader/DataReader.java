@@ -1,16 +1,12 @@
 package io.github.cepr0.dualdb.reader;
 
 import io.github.cepr0.dualdb.first.model.User;
-import io.github.cepr0.dualdb.first.repo.UserRepo;
 import io.github.cepr0.dualdb.second.model.Order;
-import io.github.cepr0.dualdb.second.repo.OrderRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class DataReader implements ApplicationRunner {
 	
-	private final UserRepo userRepo;
-	private final OrderRepo orderRepo;
+	private final UserService userService;
+	private final OrderService orderService;
 	
-	public DataReader(UserRepo userRepo, OrderRepo orderRepo) {
-		this.userRepo = userRepo;
-		this.orderRepo = orderRepo;
+	public DataReader(UserService userService, OrderService orderService) {
+		this.userService = userService;
+		this.orderService = orderService;
 	}
 	
 	@Async
@@ -35,16 +31,12 @@ public class DataReader implements ApplicationRunner {
 		
 		//noinspection InfiniteLoopStatement
 		while (true) {
-			readData();
+			List<User> userList = userService.findAll();
+			List<Order> orderList = orderService.findAll();
+			log.info("<<< Read users: {}, orders: {}", userList.size(), orderList.size());
+
+			TimeUnit.SECONDS.sleep(2);
 		}
 	}
-	
-	@Transactional(isolation = Isolation.READ_UNCOMMITTED, readOnly = true)
-	public void readData() throws InterruptedException {
-		List<User> userList = userRepo.findAll();
-		List<Order> orderList = orderRepo.findAll();
-		log.info("<<< Read users: {}, orders: {}", userList.size(), orderList.size());
-		
-		TimeUnit.SECONDS.sleep(2);
-	}
+
 }

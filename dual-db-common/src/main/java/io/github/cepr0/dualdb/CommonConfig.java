@@ -1,8 +1,6 @@
 package io.github.cepr0.dualdb;
 
 import bitronix.tm.resource.jdbc.PoolingDataSource;
-import org.springframework.boot.jta.bitronix.PoolingConnectionFactoryBean;
-import org.springframework.boot.jta.bitronix.PoolingDataSourceBean;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
@@ -56,9 +55,10 @@ public class CommonConfig {
 		pds.setShareTransactionConnections(true);
 		pds.setEnableJdbc4ConnectionTest(true);
 
-		pds.getDriverProperties().put("user", "postgres");
-		pds.getDriverProperties().put("password", "postgres");
-		pds.getDriverProperties().put("url", "jdbc:postgresql://localhost:5432/" + name);
+		Properties driverProperties = pds.getDriverProperties();
+		driverProperties.put("user", "postgres");
+		driverProperties.put("password", "postgres");
+		driverProperties.put("url", "jdbc:postgresql://localhost:5432/" + name);
 
 		pds.init();
 		return pds;

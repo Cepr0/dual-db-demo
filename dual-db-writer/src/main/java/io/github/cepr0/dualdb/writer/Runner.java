@@ -15,11 +15,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class DemoData {
+public class Runner {
 	
 	private final ApplicationEventPublisher publisher;
 	
-	public DemoData(ApplicationEventPublisher publisher) {
+	public Runner(ApplicationEventPublisher publisher) {
 		this.publisher = publisher;
 	}
 	

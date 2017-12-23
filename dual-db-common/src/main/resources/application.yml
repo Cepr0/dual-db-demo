@@ -24,7 +24,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
 
         connection:
           release_mode: after_statement
@@ -34,15 +34,15 @@ spring:
             enable: true
             platform: org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform
 
-  jta:
-    bitronix:
-      datasource:
-        class-name: org.postgresql.xa.PGXADataSource
-        allow-local-transactions: true
-        max-pool-size: 16
-        min-pool-size: 5
-        enable-jdbc4-connection-test: true
-        isolation-level: READ_UNCOMMITTED
+#  jta:
+#    bitronix:
+#      datasource:
+#        class-name: org.postgresql.xa.PGXADataSource
+#        allow-local-transactions: true
+#        max-pool-size: 16
+#        min-pool-size: 5
+#        enable-jdbc4-connection-test: true
+#        isolation-level: READ_UNCOMMITTED
 
 #      connectionfactory:
 #        max-pool-size: 10

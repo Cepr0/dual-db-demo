@@ -30,6 +30,24 @@
         <module>dual-db-reader</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>postgres</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>dual-db-postgres</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <modules>
+                <module>dual-db-mysql</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,12 +68,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jta-bitronix</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <!--<scope>runtime</scope>-->
         </dependency>
 
         <dependency>

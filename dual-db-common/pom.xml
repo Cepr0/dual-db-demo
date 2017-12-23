@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>dual-db-common</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Common stuff of the project</description>
 
     <parent>
         <groupId>io.github.cepr0</groupId>
@@ -18,4 +18,26 @@
         <!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
 
+    <profiles>
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>io.github.cepr0</groupId>
+                    <artifactId>dual-db-postgres</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <dependencies>
+                <dependency>
+                    <groupId>io.github.cepr0</groupId>
+                    <artifactId>dual-db-mysql</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>

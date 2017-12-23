@@ -38,5 +38,4 @@ public class DataReader implements ApplicationRunner {
 			TimeUnit.SECONDS.sleep(2);
 		}
 	}
-
 }

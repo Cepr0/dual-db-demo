@@ -5,11 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import static javax.persistence.GenerationType.AUTO;
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author Cepr0, 2017-12-21
@@ -19,11 +18,10 @@ import static javax.persistence.GenerationType.AUTO;
 @AllArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = AUTO)
-	private final Long id = null;
+	private final UUID id = UUID.randomUUID();
 
 	private Integer number;
 }

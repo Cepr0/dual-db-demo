@@ -29,7 +29,7 @@ public class SecondDataSourceConfig {
 	}
 
 	@Bean(name = "secondDataSource")
-	@ConfigurationProperties(prefix="datasource.second")
+//	@ConfigurationProperties(prefix="datasource.second")
 	public DataSource dataSource() {
 		return CommonConfig.buildDataSource("second");
 	}

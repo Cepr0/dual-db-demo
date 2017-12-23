@@ -32,31 +32,40 @@ spring:
   jta:
     bitronix:
       datasource:
+        class-name: org.postgresql.xa.PGXADataSource
         allow-local-transactions: true
-        max-pool-size: 10
+        max-pool-size: 16
         min-pool-size: 5
-        local-auto-commit: 2
+        enable-jdbc4-connection-test: true
+        isolation-level: READ_UNCOMMITTED
+
 #      connectionfactory:
 #        max-pool-size: 10
 #        min-pool-size: 5
 #      properties:
 #        asynchronous2-pc: true
 
-datasource:
-  first:
-    url: jdbc:postgresql://localhost:5432/first
-    username: postgres
-    password: postgres
-    driverClassName: org.postgresql.Driver
-  second:
-    url: jdbc:postgresql://localhost:5432/second
-    username: postgres
-    password: postgres
-    driverClassName: org.postgresql.Driver
+#datasource:
+#  first:
+#    url: jdbc:postgresql://localhost:5432/first
+#    username: postgres
+#    password: postgres
+#    driverClassName: org.postgresql.Driver
+#  second:
+#    url: jdbc:postgresql://localhost:5432/second
+#    username: postgres
+#    password: postgres
+#    driverClassName: org.postgresql.Driver
 
 logging:
   level:
 #    root: debug
+    bitronix:
+      tm:
+        BitronixTransaction: debug
+#        resource:
+#          jdbc:
+#            JdbcPooledConnection: debug
     jdbc:
       sqlonly: fatal
       resultsettable: fatal
@@ -69,5 +78,3 @@ logging:
       springframework:
         orm:
           jpa: debug
-server:
-  port: 8081

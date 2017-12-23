@@ -1,0 +1,1 @@
+start "DB Writer" java -jar -Dserver.port=8081 dual-db-writer/target/dual-db-writer.jar

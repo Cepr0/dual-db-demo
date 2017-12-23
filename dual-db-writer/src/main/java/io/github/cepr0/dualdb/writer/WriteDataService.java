@@ -34,11 +34,14 @@ public class WriteDataService {
 	@EventListener
 	@Transactional
 	public void writeData(WriteEvent event) throws InterruptedException {
-		
+
+		log.info("### Start the writing transaction.");
+
 		Boolean isRollback = (Boolean) event.getSource();
-		
-		log.info("!!! Start writing");
-		
+
+		long usersCount = userRepo.count();
+		long ordersCount = orderRepo.count();
+
 		List<User> userList = userRepo.save(asList(
 				new User("user1"),
 				new User("user2")
@@ -49,13 +52,14 @@ public class WriteDataService {
 				new Order(2)
 		));
 		
-		log.info(">>> Wrote users: {}, orders: {}", userList.size(), orderList.size());
-		log.info("??? Wainng finishing transaction...");
+		log.info(">>> Wrote users: {}, orders: {}", userList.size() + usersCount, orderList.size() + ordersCount);
+		log.info("??? Waiting finishing transaction...");
 		
 		TimeUnit.SECONDS.sleep(10);
 		if (isRollback) {
-			log.info("!!! Exception !!!");
+			log.info("!!! Rollback transaction.");
 			throw new RuntimeException("Something wrong happen...");
 		}
+		log.info("### Commit transaction.");
 	}
 }

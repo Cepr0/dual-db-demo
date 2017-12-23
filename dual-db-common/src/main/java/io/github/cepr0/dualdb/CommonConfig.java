@@ -1,6 +1,8 @@
 package io.github.cepr0.dualdb;
 
 import bitronix.tm.resource.jdbc.PoolingDataSource;
+import org.springframework.boot.jta.bitronix.PoolingConnectionFactoryBean;
+import org.springframework.boot.jta.bitronix.PoolingDataSourceBean;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,13 +49,17 @@ public class CommonConfig {
 //		PoolingDataSource pds = new PoolingDataSourceBean();
 		pds.setUniqueName(name);
 		pds.setClassName("org.postgresql.xa.PGXADataSource");
-		pds.setMaxPoolSize(10);
+		pds.setMaxPoolSize(16);
+		pds.setMinPoolSize(5);
 		pds.setAllowLocalTransactions(true);
+		pds.setIsolationLevel("READ_UNCOMMITTED");
+		pds.setShareTransactionConnections(true);
+		pds.setEnableJdbc4ConnectionTest(true);
+
 		pds.getDriverProperties().put("user", "postgres");
 		pds.getDriverProperties().put("password", "postgres");
 		pds.getDriverProperties().put("url", "jdbc:postgresql://localhost:5432/" + name);
-		//pds.getDriverProperties().put("max_prepared_transactions", 10);
-		//pds.getDriverProperties().put("driverClassName", "org.postgresql.Driver");
+
 		pds.init();
 		return pds;
 

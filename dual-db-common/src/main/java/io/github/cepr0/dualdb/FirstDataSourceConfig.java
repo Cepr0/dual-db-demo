@@ -2,6 +2,8 @@ package io.github.cepr0.dualdb;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jta.bitronix.PoolingConnectionFactoryBean;
+import org.springframework.boot.jta.bitronix.PoolingDataSourceBean;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +33,7 @@ public class FirstDataSourceConfig {
 
 	@Primary
 	@Bean(name = "firstDataSource")
-	@ConfigurationProperties(prefix="datasource.first")
+//	@ConfigurationProperties(prefix="datasource.first")
 	public DataSource dataSource() {
 		return CommonConfig.buildDataSource("first");
 	}

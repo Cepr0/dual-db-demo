@@ -1,0 +1,73 @@
+
+spring:
+  data:
+    rest:
+      base-path: ''
+      enable-enum-translation: true
+
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+    time-zone: UTC
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  messages:
+    fallback-to-system-locale: false
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        transaction:
+#          jta:
+#            enable: true
+#            platform: org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    hibernate:
+      ddl-auto: validate
+
+  jta:
+    bitronix:
+      datasource:
+        allow-local-transactions: true
+        max-pool-size: 10
+        min-pool-size: 5
+        local-auto-commit: 2
+#      connectionfactory:
+#        max-pool-size: 10
+#        min-pool-size: 5
+#      properties:
+#        asynchronous2-pc: true
+
+datasource:
+  first:
+    url: jdbc:postgresql://localhost:5432/first
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  second:
+    url: jdbc:postgresql://localhost:5432/second
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+
+logging:
+  level:
+#    root: debug
+    jdbc:
+      sqlonly: fatal
+      resultsettable: fatal
+      sqltiming: fatal
+      audit: fatal
+      resultset: fatal
+      connection: fatal
+
+    org:
+      springframework:
+        orm:
+          jpa: debug
+server:
+  port: 8081

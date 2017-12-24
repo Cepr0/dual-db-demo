@@ -30,9 +30,8 @@ public class FirstDataSourceConfig {
 
 	@Primary
 	@Bean(name = "firstDataSource")
-//	@ConfigurationProperties(prefix="datasource.first")
 	public DataSource dataSource() {
-		return DataSourceConfig.buildDataSource("first");
+		return DataSourceConfig.buildDataSource("first", "READ_COMMITTED");
 	}
 
 	@Primary

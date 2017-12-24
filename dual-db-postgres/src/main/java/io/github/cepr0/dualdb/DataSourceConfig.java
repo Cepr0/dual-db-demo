@@ -9,7 +9,7 @@ import java.util.Properties;
  * @author Cepr0, 2017-12-23
  */
 public class DataSourceConfig {
-	public static DataSource buildDataSource(String name) {
+	public static DataSource buildDataSource(String name, String isolationLevel) {
 
 		PoolingDataSource pds = new PoolingDataSource();
 //		PoolingDataSource pds = new PoolingDataSourceBean();
@@ -18,7 +18,7 @@ public class DataSourceConfig {
 		pds.setMaxPoolSize(16);
 		pds.setMinPoolSize(5);
 		pds.setAllowLocalTransactions(true);
-		pds.setIsolationLevel("READ_UNCOMMITTED");
+		pds.setIsolationLevel(isolationLevel);
 		pds.setShareTransactionConnections(true);
 		pds.setEnableJdbc4ConnectionTest(true);
 

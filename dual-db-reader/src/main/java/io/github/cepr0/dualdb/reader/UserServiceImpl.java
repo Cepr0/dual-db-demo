@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 /**
  * @author Cepr0, 2017-12-23
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService {
 		this.userRepo = userRepo;
 	}
 
-	@Transactional(transactionManager = "bitronixTransactionManager",
-			readOnly = true, isolation = READ_COMMITTED)
+	@Transactional(propagation = REQUIRES_NEW, isolation = READ_COMMITTED,
+			transactionManager = "bitronixTransactionManager", readOnly = true)
 	public List<User> findAll() {
 		return userRepo.findAll();
 	}

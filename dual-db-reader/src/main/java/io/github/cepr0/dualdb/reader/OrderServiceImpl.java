@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 /**
  * @author Cepr0, 2017-12-23
@@ -21,8 +22,8 @@ public class OrderServiceImpl implements OrderService {
 		this.orderRepo = orderRepo;
 	}
 
-	@Transactional(transactionManager = "bitronixTransactionManager",
-			readOnly = true, isolation = READ_UNCOMMITTED)
+	@Transactional(propagation = REQUIRES_NEW, isolation = READ_UNCOMMITTED,
+			transactionManager = "bitronixTransactionManager", readOnly = true)
 	public List<Order> findAll() {
 		return orderRepo.findAll();
 	}

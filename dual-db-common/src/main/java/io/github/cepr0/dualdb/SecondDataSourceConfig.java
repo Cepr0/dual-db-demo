@@ -28,9 +28,8 @@ public class SecondDataSourceConfig {
 	}
 
 	@Bean(name = "secondDataSource")
-//	@ConfigurationProperties(prefix="datasource.second")
 	public DataSource dataSource() {
-		return DataSourceConfig.buildDataSource("second");
+		return DataSourceConfig.buildDataSource("second", "READ_UNCOMMITTED");
 	}
 
 	@Bean(name = "secondEntityManagerFactory")

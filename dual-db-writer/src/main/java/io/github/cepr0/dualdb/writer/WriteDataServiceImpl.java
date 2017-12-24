@@ -41,11 +41,13 @@ public class WriteDataServiceImpl implements WriteDataService {
 				new User("user1"),
 				new User("user2")
 		));
+		userRepo.flush();
 
 		List<Order> orderList = orderRepo.save(asList(
 				new Order(1),
 				new Order(2)
 		));
+		orderRepo.flush();
 
 		log.info(">>> Wrote users: {}, orders: {}", userList.size() + usersCount, orderList.size() + ordersCount);
 		log.info("??? Waiting finishing transaction...");

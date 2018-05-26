@@ -52,7 +52,7 @@ public class WriteDataServiceImpl implements WriteDataService {
 		log.info(">>> Wrote users: {}, orders: {}", userList.size() + usersCount, orderList.size() + ordersCount);
 		log.info("??? Waiting finishing transaction...");
 
-		TimeUnit.SECONDS.sleep(10);
+		TimeUnit.SECONDS.sleep(3);
 		if (isRollback) {
 			log.info("!!! Rolling back transaction...");
 			throw new RuntimeException("Something wrong happened...");

@@ -44,6 +44,6 @@ public class DataReader implements ApplicationRunner {
 		List<Order> orderList = orderService.findAll();
 		log.info("<<< Read users: {}, orders: {}", userList.size(), orderList.size());
 
-		TimeUnit.SECONDS.sleep(2);
+		TimeUnit.SECONDS.sleep(1);
 	}
 }

@@ -23,15 +23,17 @@ import javax.sql.DataSource;
 public class FirstDataSourceConfig {
 
 	private final Environment env;
+	private final DataSourceProvider dataSourceProvider;
 
-	public FirstDataSourceConfig(Environment env) {
+	public FirstDataSourceConfig(Environment env, DataSourceProvider dataSourceProvider) {
 		this.env = env;
+		this.dataSourceProvider = dataSourceProvider;
 	}
 
 	@Primary
 	@Bean(name = "firstDataSource")
 	public DataSource dataSource() {
-		return DataSourceConfig.buildDataSource("first", "READ_COMMITTED");
+		return dataSourceProvider.get("first", "READ_COMMITTED");
 	}
 
 	@Primary

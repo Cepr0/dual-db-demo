@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class Runner {
 	
 	private final ApplicationEventPublisher publisher;
-	
+
 	public Runner(ApplicationEventPublisher publisher) {
 		this.publisher = publisher;
 	}
@@ -38,8 +39,8 @@ public class Runner {
 		publisher.publishEvent(new WriteEvent(isRollback));
 		log.info("<<<@>>> Write event has been sent...");
 
-		TimeUnit.SECONDS.sleep(10);
-		Random random = new Random();
+		TimeUnit.SECONDS.sleep(5);
+		Random random = ThreadLocalRandom.current();
 		publisher.publishEvent(new RepeatEvent(random.nextBoolean()));
 	}
 }

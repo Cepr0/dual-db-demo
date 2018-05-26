@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: @spring.profile@
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
+    properties:
+      hibernate:
+        format_sql: true
+        connection:
+          release_mode: after_statement
+        transaction:
+          jta:
+            enable: true
+            platform: org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform
+
+logging:
+  level:
+#    root: debug
+    bitronix:
+      tm:
+        BitronixTransaction: debug
+#        resource:
+#          jdbc:
+#            JdbcPooledConnection: debug
+    jdbc:
+      sqlonly: info
+      resultsettable: info
+      sqltiming: fatal
+      audit: fatal
+      resultset: fatal
+      connection: fatal
+
+    org:
+      springframework:
+        orm:
+          jpa: debug

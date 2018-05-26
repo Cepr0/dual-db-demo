@@ -22,14 +22,16 @@ import javax.sql.DataSource;
 public class SecondDataSourceConfig {
 
 	private final Environment env;
+	private final DataSourceProvider dataSourceProvider;
 
-	public SecondDataSourceConfig(Environment env) {
+	public SecondDataSourceConfig(Environment env, DataSourceProvider dataSourceProvider) {
 		this.env = env;
+		this.dataSourceProvider = dataSourceProvider;
 	}
 
 	@Bean(name = "secondDataSource")
 	public DataSource dataSource() {
-		return DataSourceConfig.buildDataSource("second", "READ_UNCOMMITTED");
+		return dataSourceProvider.get("second", "READ_UNCOMMITTED");
 	}
 
 	@Bean(name = "secondEntityManagerFactory")

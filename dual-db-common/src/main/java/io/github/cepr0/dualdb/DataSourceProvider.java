@@ -6,15 +6,22 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * @author Cepr0, 2017-12-23
+ * @author Cepr0, 2018-05-26
  */
-public class DataSourceConfig {
-	public static DataSource buildDataSource(String name, String isolationLevel) {
+public interface DataSourceProvider {
+	DataSource get(String sourceName, String isolationLevel);
 
+	default PoolingDataSource build(
+			String uniqueName,
+			String isolationLevel,
+			String className,
+			String dbUser,
+			String dbPassword,
+			String url
+	) {
 		PoolingDataSource pds = new PoolingDataSource();
-//		PoolingDataSource pds = new PoolingDataSourceBean();
-		pds.setUniqueName(name);
-		pds.setClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource");
+		pds.setUniqueName(uniqueName);
+		pds.setClassName(className);
 		pds.setMaxPoolSize(16);
 		pds.setMinPoolSize(5);
 		pds.setAllowLocalTransactions(true);
@@ -23,14 +30,11 @@ public class DataSourceConfig {
 		pds.setEnableJdbc4ConnectionTest(true);
 
 		Properties driverProperties = pds.getDriverProperties();
-		driverProperties.put("user", "root");
-		driverProperties.put("password", "root");
-		driverProperties.put("url", "jdbc:mysql://localhost:3306/" + name);
+		driverProperties.put("user", dbUser);
+		driverProperties.put("password", dbPassword);
+		driverProperties.put("url", url);
 
 		pds.init();
 		return pds;
-
-//		return DataSourceBuilder.create().build();
 	}
-
 }
